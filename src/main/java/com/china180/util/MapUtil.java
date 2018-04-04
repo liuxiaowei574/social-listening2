@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class MapUtil {
-	private static Logger logger = LogManager.getLogger("WOPAY");
+	private static Logger logger = LogManager.getLogger(MapUtil.class);
 
 	/**
 	 * 将一个 JavaBean 对象转化为一个 Map

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+	<properties>
+        <Property name="app_name">social-listening</Property>
+        <Property name="log_path">/app/applogs/${app_name}</Property>
+    </properties>
+    
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%-5p %d{yyyy-MM-dd HH:mm:ss} %-12t %l%m%n" />
+		</Console>
+		
+		<RollingFile name="RollingFileInfo" fileName="${log_path}/info.log"
+                     filePattern="${log_path}/%d{yyyy-MM-dd}/info-%d{yyyy-MM-dd}-%i.log.gz">
+            <Filters>
+                <ThresholdFilter level="INFO" />
+                <!-- <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL" /> -->
+            </Filters>
+            <!-- <PatternLayout pattern="[%d][%t][%p][%c:%L] %m%n" /> -->
+            <PatternLayout pattern="%-5p %d{yyyy-MM-dd HH:mm:ss} %-12t %l%m%n" />
+            <Policies>
+                <!-- 归档每天的文件 -->
+                <!-- <TimeBasedTriggeringPolicy interval="5" modulate="true" /> -->
+                <!-- 限制单个文件大小 -->
+                <SizeBasedTriggeringPolicy size="50 MB" />
+            </Policies>
+            <!-- 限制每天文件个数 -->
+            <DefaultRolloverStrategy compressionLevel="0" max="50"/>
+        </RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="org.springframework" level="warn">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFileInfo" />
+		</Root>
+	</Loggers>
+</Configuration>

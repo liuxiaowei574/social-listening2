@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ResponseMapUtil {
-	private static Logger logger = LogManager.getLogger("180CHINA");
+	private static Logger logger = LogManager.getLogger(ResponseMapUtil.class);
 
 	/**
 	 * 将一个 JavaBean 对象转化为一个 Map
@@ -98,7 +98,7 @@ public class ResponseMapUtil {
 		map.put(Constant.RESULTCODE, code);
 		map.put(Constant.DATA, data == null ? new HashMap() : data);
 		String sysCodeMsg = SystemErrorCodePropertiesUtil.getProps(code);
-		map.put(Constant.REASON, sysCodeMsg == null ? codeMsg : sysCodeMsg);
+		map.put(Constant.MESSAGE, sysCodeMsg == null ? codeMsg : sysCodeMsg);
 		logger.info("return Map =" + map);
 		return map;
 	}

@@ -17,6 +17,8 @@ public class Constant {
 	public static final String SUCCESS = "0";
 	public static final String OK = "ok";
 	public static final String FAILED = "failed";
+	
+	public static final String SESSION_USER = "SESSION_USER";
 
 	// 时间
 	/** 24小时，单位：秒 */
