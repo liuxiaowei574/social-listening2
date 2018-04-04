@@ -1,6 +1,9 @@
 package com.china180.vo;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+	private static final long serialVersionUID = -3618603764975798961L;
 
 	private int userId;
 	private String loginName;

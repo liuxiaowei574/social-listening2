@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.china180.dao.SoundDao">
+	
+	<sql id="Base_Column_List">
+		sound_id
+	</sql>
+	
+	<select id="findByRange" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT DATE(sound__timestamp) as "name", SUM(sound_tbl.sound_count) as "value" 
+		FROM sound_tbl 
+		WHERE project_id = #{project_id,jdbcType=VARCHAR}
+		AND sound__timestamp &gt;= #{start_time,jdbcType=VARCHAR}
+		AND sound__timestamp &lt;= #{end_time,jdbcType=VARCHAR}
+		AND sound_source_id in 
+		<foreach item="item" index="index" collection="sourceList" open="(" separator="," close=")">  
+		  #{item}  
+		</foreach>
+		GROUP BY DATE(sound__timestamp) 
+		ORDER BY DATE(sound__timestamp)
+	</select>
+	
+</mapper>

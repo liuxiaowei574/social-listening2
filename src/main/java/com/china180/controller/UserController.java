@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.china180.service.UserService;
-import com.china180.util.Constant;
 import com.china180.util.ResponseMapUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

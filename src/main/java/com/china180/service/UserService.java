@@ -3,6 +3,8 @@ package com.china180.service;
 import java.util.List;
 import java.util.Map;
 
+import com.china180.vo.User;
+
 public interface UserService {
 	
 	public List<Map<String, Object>> findAll();
@@ -11,7 +13,7 @@ public interface UserService {
 	
 	public List<Map<String, Object>> findByProperties(Map<String, Object> map);
 	
-	public List<Map<String, Object>> login(String loginName);
+	public List<User> login(String loginName);
 
 	public int insert(Map<String, Object> map);
 }

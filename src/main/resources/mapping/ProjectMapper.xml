@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.china180.dao.ProjectDao">
+	
+	<sql id="Base_Column_List">
+		project_id,
+		project_name,
+		project_user_belong,
+		project_status,
+		project_priority,
+		project_type,
+		project_brand,
+		project_info,
+		project_key_words,
+		project_source,
+		start_time,
+		end_time,
+		project_create_time,
+		project_product
+	</sql>
+	
+	<select id="findAll" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM project_tbl
+	</select>
+	
+	<select id="findById" resultType="java.util.Map" parameterType="String">
+		SELECT project_status, project_user_belong
+		FROM project_tbl 
+		WHERE project_id = #{project_id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findByProperties" resultType="java.util.Map" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		FROM user_tbl 
+		<where>
+			<if test="user_id != null">
+		    	user_id = #{user_id,jdbcType=VARCHAR}
+			</if>
+			<if test="login_name != null">
+		    	login_name = #{login_name,jdbcType=VARCHAR}
+			</if>
+			<if test="user_status != null">
+		    	user_status = #{user_status,jdbcType=VARCHAR}
+			</if>
+			<if test="user_level != null">
+		    	user_level = #{user_level,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<update id="update" parameterType="java.util.Map">
+		update project_tbl
+		<set>
+			<if test="project_name != null">
+				project_name = #{project_name,jdbcType=VARCHAR},
+			</if>
+			<if test="project_type != null">
+				project_type = #{project_type,jdbcType=INTEGER},
+			</if>
+			<if test="project_product != null">
+				project_product = #{project_product,jdbcType=VARCHAR},
+			</if>
+			<if test="project_brand != null">
+				project_brand = #{project_brand,jdbcType=VARCHAR},
+			</if>
+			<if test="project_info != null">
+				project_info = #{project_info,jdbcType=CLOB},
+			</if>
+			<if test="project_key_words != null">
+				project_key_words = #{project_key_words,jdbcType=VARCHAR},
+			</if>
+			<if test="project_source != null">
+				project_source = #{project_source,jdbcType=VARCHAR},
+			</if>
+			<if test="start_time != null">
+				start_time = #{start_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="end_time != null">
+				end_time = #{end_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="project_status != null">
+				project_status = #{project_status,jdbcType=INTEGER},
+			</if>
+			<if test="project_create_time != null">
+				project_create_time = #{project_create_time,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where project_id = #{project_id,jdbcType=INTEGER}
+	</update>
+	
+	<insert id="insert" parameterType="java.util.Map" >
+    insert into user_tbl (login_name, `password`, user_level, user_status, user_pic)
+    values (
+    	#{login_name,jdbcType=VARCHAR}, 
+    	#{password,jdbcType=VARCHAR}, 
+    	#{user_level,jdbcType=VARCHAR}, 
+		#{user_status,jdbcType=VARCHAR},
+		'' )
+    </insert>
+	
+</mapper>
