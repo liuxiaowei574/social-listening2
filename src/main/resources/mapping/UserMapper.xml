@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.china180.dao.UserDao">
+	<resultMap id="BaseResultMap" type="java.util.Map">
+		<id column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="login_name" property="login_name" jdbcType="VARCHAR" />
+		<result column="user_status" property="user_status" jdbcType="INTEGER" />
+		<result column="user_level" property="user_level" jdbcType="INTEGER" />
+		<result column="user_pic" property="user_pic" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		user_id,
+		login_name,
+		user_status,
+		user_level,
+		user_pic
+	</sql>
+	
+	<select id="findAll" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM user_tbl
+	</select>
+	
+	<select id="findByLoginName" resultType="java.util.Map" parameterType="String">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM user_tbl 
+		WHERE login_name = #{loginName,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="login" resultType="java.util.Map" parameterType="String">
+		SELECT 	user_id,
+				password,
+				login_name,
+				user_status,
+				user_level,
+				user_pic
+		FROM user_tbl 
+		WHERE login_name = #{loginName,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findByProperties" resultType="java.util.Map" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		FROM user_tbl 
+		<where>
+			<if test="user_id != null">
+		    	user_id = #{user_id,jdbcType=VARCHAR}
+			</if>
+			<if test="login_name != null">
+		    	login_name = #{login_name,jdbcType=VARCHAR}
+			</if>
+			<if test="user_status != null">
+		    	user_status = #{user_status,jdbcType=VARCHAR}
+			</if>
+			<if test="user_level != null">
+		    	user_level = #{user_level,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert" parameterType="java.util.Map" >
+    insert into user_tbl (login_name, `password`, user_level, user_status, user_pic)
+    values (
+    	#{login_name,jdbcType=VARCHAR}, 
+    	#{password,jdbcType=VARCHAR}, 
+    	#{user_level,jdbcType=VARCHAR}, 
+		#{user_status,jdbcType=VARCHAR},
+		'' )
+    </insert>
+	
+</mapper>
