@@ -19,12 +19,6 @@
 		project_product
 	</sql>
 	
-	<select id="findAll" resultType="java.util.Map" parameterType="java.util.Map">
-		SELECT 
-		<include refid="Base_Column_List" />
-		FROM project_tbl
-	</select>
-	
 	<select id="findById" resultType="java.util.Map" parameterType="String">
 		SELECT project_status, project_user_belong
 		FROM project_tbl 
@@ -34,19 +28,16 @@
 	<select id="findByProperties" resultType="java.util.Map" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
-		FROM user_tbl 
+		FROM project_tbl 
 		<where>
-			<if test="user_id != null">
-		    	user_id = #{user_id,jdbcType=VARCHAR}
+			<if test="project_name != null">
+		    	AND project_name = #{project_name,jdbcType=VARCHAR}
 			</if>
-			<if test="login_name != null">
-		    	login_name = #{login_name,jdbcType=VARCHAR}
+			<if test="project_user_belong != null">
+		    	AND project_user_belong = #{project_user_belong,jdbcType=VARCHAR}
 			</if>
-			<if test="user_status != null">
-		    	user_status = #{user_status,jdbcType=VARCHAR}
-			</if>
-			<if test="user_level != null">
-		    	user_level = #{user_level,jdbcType=VARCHAR}
+			<if test="project_type != null">
+		    	AND project_type = #{project_type,jdbcType=VARCHAR}
 			</if>
 		</where>
 	</select>
@@ -91,14 +82,26 @@
 		where project_id = #{project_id,jdbcType=INTEGER}
 	</update>
 	
-	<insert id="insert" parameterType="java.util.Map" >
-    insert into user_tbl (login_name, `password`, user_level, user_status, user_pic)
+	<insert id="insert" parameterType="com.china180.vo.Project" >
+    insert into project_tbl (project_name, project_type, project_product, project_user_belong, project_brand,
+    	project_info, project_key_words, project_source, start_time, end_time, project_priority, project_status,
+    	project_create_time
+    )
     values (
-    	#{login_name,jdbcType=VARCHAR}, 
-    	#{password,jdbcType=VARCHAR}, 
-    	#{user_level,jdbcType=VARCHAR}, 
-		#{user_status,jdbcType=VARCHAR},
-		'' )
+    	#{projectName,jdbcType=VARCHAR}, 
+    	#{projectType,jdbcType=INTEGER}, 
+    	#{projectProduct,jdbcType=VARCHAR}, 
+		#{projectUserBelong,jdbcType=VARCHAR},
+		#{projectBrand,jdbcType=VARCHAR},
+		#{projectInfo,jdbcType=CLOB},
+		#{projectKeyWords,jdbcType=VARCHAR},
+		#{projectSource,jdbcType=VARCHAR},
+		#{startTime,jdbcType=TIMESTAMP},
+		#{endTime,jdbcType=TIMESTAMP},
+		#{projectPriority,jdbcType=INTEGER},
+		#{projectStatus,jdbcType=INTEGER},
+		#{projectCreateTime,jdbcType=TIMESTAMP}
+		)
     </insert>
 	
 </mapper>

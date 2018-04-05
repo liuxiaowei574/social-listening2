@@ -3,6 +3,7 @@
 	<properties>
         <Property name="app_name">social-listening</Property>
         <Property name="log_path">/app/applogs/${app_name}</Property>
+        <!-- <Property name="RollingFileInfoLevel">${RollingFileInfoLevel}</Property> -->
     </properties>
     
 	<Appenders>
@@ -13,7 +14,7 @@
 		<RollingFile name="RollingFileInfo" fileName="${log_path}/info.log"
                      filePattern="${log_path}/%d{yyyy-MM-dd}/info-%d{yyyy-MM-dd}-%i.log.gz">
             <Filters>
-                <ThresholdFilter level="INFO" />
+                <ThresholdFilter level="${RollingFileInfoLevel}" />
                 <!-- <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL" /> -->
             </Filters>
             <!-- <PatternLayout pattern="[%d][%t][%p][%c:%L] %m%n" /> -->
@@ -32,7 +33,7 @@
 		<Logger name="org.springframework" level="warn">
 			<AppenderRef ref="Console" />
 		</Logger>
-		<Root level="info">
+		<Root level="${RollingFileInfoLevel}">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="RollingFileInfo" />
 		</Root>

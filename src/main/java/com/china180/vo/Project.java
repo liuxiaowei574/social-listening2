@@ -14,11 +14,11 @@ public class Project implements Serializable {
 	private int projectType;
 	private String projectBrand;
 	private String projectInfo;
-	private String projectKey_words;
+	private String projectKeyWords;
 	private String projectSource;
 	private Timestamp startTime;
 	private Timestamp endTime;
-	private Timestamp projectCreate_time;
+	private Timestamp projectCreateTime;
 	private String projectProduct;
 
 	public int getProjectId() {
@@ -85,12 +85,12 @@ public class Project implements Serializable {
 		this.projectInfo = projectInfo;
 	}
 
-	public String getProjectKey_words() {
-		return projectKey_words;
+	public String getProjectKeyWords() {
+		return projectKeyWords;
 	}
 
-	public void setProjectKey_words(String projectKey_words) {
-		this.projectKey_words = projectKey_words;
+	public void setProjectKeyWords(String projectKeyWords) {
+		this.projectKeyWords = projectKeyWords;
 	}
 
 	public String getProjectSource() {
@@ -117,20 +117,20 @@ public class Project implements Serializable {
 		this.endTime = endTime;
 	}
 
-	public Timestamp getProjectCreate_time() {
-		return projectCreate_time;
-	}
-
-	public void setProjectCreate_time(Timestamp projectCreate_time) {
-		this.projectCreate_time = projectCreate_time;
-	}
-
 	public String getProjectProduct() {
 		return projectProduct;
 	}
 
 	public void setProjectProduct(String projectProduct) {
 		this.projectProduct = projectProduct;
+	}
+
+	public Timestamp getProjectCreateTime() {
+		return projectCreateTime;
+	}
+
+	public void setProjectCreateTime(Timestamp projectCreateTime) {
+		this.projectCreateTime = projectCreateTime;
 	}
 
 }

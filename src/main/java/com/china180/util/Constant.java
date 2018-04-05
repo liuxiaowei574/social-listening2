@@ -13,7 +13,7 @@ public class Constant {
 	public static final String DATA = "data";
 	public static final String MESSAGE = "message";
 
-	public static final String ERROR = "1";
+	public static final String ERROR = "1001";
 	public static final String SUCCESS = "0";
 	public static final String OK = "ok";
 	public static final String FAILED = "failed";

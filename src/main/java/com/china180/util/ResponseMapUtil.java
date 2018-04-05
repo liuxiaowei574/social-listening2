@@ -56,7 +56,7 @@ public class ResponseMapUtil {
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static Map setDefultError(Map map, String code, String codeMsg, Map data) {
+	public static Map setDefultError(Map map, String code, String codeMsg, Object data) {
 		map.put(Constant.RESULTCODE, Constant.ERROR);
 		map.put(Constant.STATUS, Constant.FAILED);
 		map.put(Constant.DATA, data == null ? new HashMap() : data);
@@ -75,7 +75,7 @@ public class ResponseMapUtil {
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static Map setDefultSuccess(Map map, String codeMsg, Map data) {
+	public static Map setDefultSuccess(Map map, String codeMsg, Object data) {
 		map.put(Constant.RESULTCODE, Constant.SUCCESS);
 		map.put(Constant.STATUS, Constant.OK);
 		map.put(Constant.DATA, data == null ? new HashMap() : data);
@@ -93,7 +93,7 @@ public class ResponseMapUtil {
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static Map setOtherResultCode(Map map, String code, String codeMsg, Map data) {
+	public static Map setOtherResultCode(Map map, String code, String codeMsg, Object data) {
 		map.put(Constant.STATUS, Constant.FAILED);
 		map.put(Constant.RESULTCODE, code);
 		map.put(Constant.DATA, data == null ? new HashMap() : data);

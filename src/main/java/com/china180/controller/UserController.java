@@ -19,7 +19,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @RestController
-public class UserController extends AbstractController {
+public class UserController extends BaseController {
 
 	@Resource
 	private UserService userService;
@@ -41,7 +41,7 @@ public class UserController extends AbstractController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/UserManager")
-	public Map<String, Object> insert(HttpServletRequest request, HttpServletResponse response,
+	public Map<String, Object> userManager(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "module", required = false) String module,
 			@RequestParam(value = "login_name", required = false) String login_name,
 			@RequestParam(value = "password", required = false) String password,
@@ -54,13 +54,13 @@ public class UserController extends AbstractController {
 				login_name, password, user_level, user_status);
 
 		if (StringUtils.isAnyBlank(module, login_name, password)) {
-			return ResponseMapUtil.setOtherResultCode(returnMap, "2", "", data);
+			return ResponseMapUtil.setOtherResultCode(returnMap, "1002", "", data);
 		}
 
 		if ("insert".equals(module)) {
 			List<Map<String, Object>> list = userService.findByLoginName(login_name);
 			if (list != null && list.size() > 0) {
-				return ResponseMapUtil.setOtherResultCode(returnMap, "3", "", data);
+				return ResponseMapUtil.setOtherResultCode(returnMap, "1001", "", data);
 			}
 
 			Map<String, Object> paramMap = new HashMap<>();
@@ -70,7 +70,7 @@ public class UserController extends AbstractController {
 			paramMap.put("user_status", user_status);
 			int result = userService.insert(paramMap);
 			if (result < 1) {
-				return ResponseMapUtil.setOtherResultCode(returnMap, "4", "", data);
+				return ResponseMapUtil.setOtherResultCode(returnMap, "1003", "", data);
 			}
 		} else if ("userlist".equals(module)) {
 

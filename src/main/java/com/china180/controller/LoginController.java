@@ -21,7 +21,7 @@ import com.china180.util.ResponseMapUtil;
 import com.china180.vo.User;
 
 @RestController
-public class LoginController extends AbstractController {
+public class LoginController extends BaseController {
 
 	@Resource
 	private UserService userService;
@@ -59,10 +59,10 @@ public class LoginController extends AbstractController {
 				}
 				User user = list.get(0);
 				if (!password.equals(user.getPassword())) {
-					return ResponseMapUtil.setOtherResultCode(returnMap, "6", "", data);
+					return ResponseMapUtil.setOtherResultCode(returnMap, "1003", "", data);
 				}
 				if (!UserStatusEnum.Normal.getText().equals(String.valueOf(user.getUserStatus()))) {
-					return ResponseMapUtil.setOtherResultCode(returnMap, "7", "", data);
+					return ResponseMapUtil.setOtherResultCode(returnMap, "1004", "", data);
 				}
 				already_login = true;
 				data.put("user_id", user.getUserId());
@@ -73,7 +73,7 @@ public class LoginController extends AbstractController {
 			}
 
 			if (!already_login) {
-				return ResponseMapUtil.setOtherResultCode(returnMap, "5", "", data);
+				return ResponseMapUtil.setOtherResultCode(returnMap, "1002", "", data);
 			}
 			if (data.size() < 1) {
 				List<Map<String, Object>> list = userService.findByLoginName(login_name);

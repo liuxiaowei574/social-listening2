@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.china180.dao.MsgDao">
+	
+	<select id="findMsg" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT msg_id, user_tbl.login_name, msg_level, msg_title, msg_info, be_read 
+		FROM msg_tbl, user_tbl 
+		WHERE user_tbl.user_id = msg_tbl.reciever_id 
+		AND msg_title like CONCAT('%', #{msg_title}, '%')
+		ORDER BY msg_id ASC
+	</select>
+	
+	<select id="findMsgByUser" resultType="java.util.Map" parameterType="String">
+		SELECT msg_id, msg_title, msg_info, msg_level, be_read 
+		FROM msg_tbl 
+		WHERE reciever_id = #{reciever_id,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="readMsg" parameterType="String">
+		UPDATE msg_tbl 
+		SET be_read = '1' 
+		WHERE msg_id = #{msg_id,jdbcType=VARCHAR}
+	</update>
+	
+</mapper>
