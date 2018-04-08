@@ -42,6 +42,43 @@
 		</where>
 	</select>
 	
+	<select id="findSpiderTask" resultType="java.util.Map" parameterType="String">
+		SELECT
+			/*
+			project_id,
+			UNIX_TIMESTAMP(start_time) AS "start_time",
+			UNIX_TIMESTAMP(end_time) AS "end_time",
+			project_brand,
+			project_product
+			*/
+			CONCAT(project_brand, ' ', project_product) as "brandProduct"
+		FROM
+			project_tbl
+		WHERE
+			project_status > 1
+		AND project_type = 1
+		ORDER BY
+			project_create_time ASC
+		LIMIT 100
+	</select>
+	
+	<select id="findEngineTask" resultType="java.util.Map" parameterType="String">
+		SELECT
+			project_id,
+			project_info,
+			UNIX_TIMESTAMP(start_time) AS "start_time",
+			UNIX_TIMESTAMP(end_time) AS "end_time",
+			project_brand,
+			project_product
+		FROM
+			project_tbl
+		WHERE
+			project_status = 2
+		ORDER BY
+			project_create_time ASC
+		LIMIT 100
+	</select>
+	
 	<update id="update" parameterType="java.util.Map">
 		update project_tbl
 		<set>

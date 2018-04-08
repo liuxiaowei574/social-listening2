@@ -52,4 +52,14 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectDao.findByProperties(paramMap);
 	}
 
+	@Override
+	public List<Map<String, Object>> findSpiderTask() {
+		return projectDao.findSpiderTask();
+	}
+	
+	@Override
+	public List<Map<String, Object>> findEngineTask() {
+		return projectDao.findEngineTask();
+	}
+
 }

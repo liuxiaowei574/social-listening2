@@ -15,6 +15,10 @@ public interface ProjectService {
 
 	public List<Map<String, Object>> findByProperties(Map<String, Object> map);
 
+	public List<Map<String, Object>> findSpiderTask();
+	
+	public List<Map<String, Object>> findEngineTask();
+
 	public int insert(Project project);
 
 	public int update(Map<String, Object> map);
