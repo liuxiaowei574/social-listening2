@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Servlet-jCuckoo</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+	<form >
+		用户名：<input type="text" id="userName"/><br/>
+		密码：<input type="password" id="userPwd"/><br/>
+		<input type="button" value="登录" id="sender"> 
+	</form>
+	<div id="messageDiv"></div>
+	
+	<script>
+	$('#sender').click(function(){
+		var module=document.getElementById('userName').value;
+		var project_id=document.getElementById('userPwd').value;
+		var user={userName:userName,userPwd:userPwd};
+		var url="ProjectManager";
+		
+/* 		$.post(url, JSON.stringify(user), function(data) {
+			  console.log(data);
+             $("#messageDiv").html(data);
+             var json=JSON.parse(data);
+             alert(json.message);
+         });  */
+		$.ajax({  
+            type: "POST",  
+            url: "MsgManager",  
+            contentType: "application/json", //必须有  
+            dataType: "json", //表示返回值类型，不必须  
+            data: JSON.stringify({ 'module': 'msg_list_by_user', 'userid': 14 }),  //相当于 //data: "{'str1':'foovalue', 'str2':'barvalue'}",  
+            success: function (jsonResult) {  
+                alert(jsonResult);  
+            }  
+        });  
+		
+	});
+	</script>
+</body>
+</html>

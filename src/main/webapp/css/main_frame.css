@@ -1,0 +1,61 @@
+@CHARSET "UTF-8";
+html{overflow-x:hidden}
+#header{
+	position : absolute;
+	left : 200px;
+	top : 0px;
+	width : auto;
+	height : 70px;
+	color : white;
+	background-color: #6CAAD9;
+	border-left-style: solid;
+	border-left-color: #2E2EB2;
+	border-button-style: solid;
+	border-button-color: #2E2EB2;
+}
+#menu{
+	position : absolute;
+	left : 0px;
+	top : 70px;
+	width : 200px;
+	height : auto;
+	border-top-style: solid;
+	border-top-color: #2E2EB2;
+	border-right-style: solid;
+	border-right-color: #2E2EB2;
+}
+#main{
+	position : absolute;
+	left : 200px;
+	top : 70px;
+	height : auto;
+	width : 1080px;
+	background-color: #EBF4FA;
+	border-top-style: solid;
+	border-left-style: solid;
+	border-left-color: #2E2EB2;
+	border-top-color: #2E2EB2;
+}
+input:disabled
+{
+	background:#99B6CC;
+}
+select:disabled
+{
+	background:#99B6CC;
+}
+/*
+button {
+	border: none;
+	background-color : #66CCCC;
+	color: white;
+	font-size: 12pt;
+	padding: 10px 10px;
+}
+submit {
+	border: none;
+	background-color : #6CAAD9;
+	color: white;
+	font-size: 12pt;
+	padding: 10px 10px;
+}*/

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.china180.service.MsgService;
@@ -27,16 +26,15 @@ public class MsgController extends BaseController {
 
 	@SuppressWarnings({ "unchecked" })
 	@RequestMapping(value = "/MsgManager")
-	public Map<String, Object> msgManager(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "module", required = false) String module) throws Exception {
+	public Map<String, Object> msgManager(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> returnMap = new HashMap<>();
 		Map<String, Object> data = new HashMap<String, Object>();
+		String module = request.getParameter("module");
 		logger.info("*****接收参数****** module={}", module);
 
 		if (StringUtils.isAnyBlank(module)) {
 			return ResponseMapUtil.setOtherResultCode(returnMap, "1002", "", data);
 		}
-		debugRequestParameters(request);
 		if ("msg_list_by_user".equals(module)) {
 			String userid = request.getParameter("userid");
 			if (StringUtils.isAnyBlank(userid)) {

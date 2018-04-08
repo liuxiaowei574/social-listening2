@@ -11,14 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.china180.enums.UserStatusEnum;
 import com.china180.service.UserService;
 import com.china180.util.Constant;
 import com.china180.util.ResponseMapUtil;
-import com.china180.vo.User;
 
 @RestController
 public class LoginController extends BaseController {
@@ -28,15 +26,17 @@ public class LoginController extends BaseController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/login")
-	public Map<String, Object> login(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "login_name", required = false) String login_name,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "logout", required = false) String logout) throws Exception {
+	public Map<String, Object> login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		MyHttpServletRequest request = new MyHttpServletRequest(req);
 		Map<String, Object> returnMap = new HashMap<>();
 		Map<String, Object> data = new HashMap<String, Object>();
+		String login_name = request.getParameter("login_name");
+		String password = request.getParameter("password");
+		String logout = request.getParameter("logout");
 		logger.info("*****接收参数****** login_name={} password={} logout={}", login_name, password, logout);
-
+		
 		HttpSession session = request.getSession();
+		logger.info("sessionId:" + session.getId());
 		boolean already_login = false;
 		if (StringUtils.isNotBlank(logout)) {
 			// 登出
@@ -53,23 +53,20 @@ public class LoginController extends BaseController {
 				}
 			} else {
 				// 登录
-				List<User> list = userService.login(login_name);
+				List<Map<String, Object>> list = userService.login(login_name);
 				if (list == null || list.size() < 1) {
 					return ResponseMapUtil.setDefultError(returnMap, Constant.ERROR, "", data);
 				}
-				User user = list.get(0);
-				if (!password.equals(user.getPassword())) {
+				Map<String, Object> user = list.get(0);
+				if (!password.equals(String.valueOf(user.get("password")))) {
 					return ResponseMapUtil.setOtherResultCode(returnMap, "1003", "", data);
 				}
-				if (!UserStatusEnum.Normal.getText().equals(String.valueOf(user.getUserStatus()))) {
+				if (!UserStatusEnum.Normal.getText().equals(String.valueOf(user.get("user_status")))) {
 					return ResponseMapUtil.setOtherResultCode(returnMap, "1004", "", data);
 				}
 				already_login = true;
-				data.put("user_id", user.getUserId());
-				data.put("loginname", user.getLoginName());
-				data.put("user_status", user.getUserStatus());
-				data.put("user_level", user.getUserLevel());
-				data.put("user_pic", user.getUserPic());
+				data.putAll(user);
+				data.remove("password");
 			}
 
 			if (!already_login) {
@@ -81,6 +78,7 @@ public class LoginController extends BaseController {
 			}
 
 			session.setAttribute(Constant.SESSION_USER, data);
+			session.setMaxInactiveInterval(3600 * 2);
 		}
 
 		return ResponseMapUtil.setDefultSuccess(returnMap, "", data);

@@ -14,7 +14,7 @@
 		<RollingFile name="RollingFileInfo" fileName="${log_path}/info.log"
                      filePattern="${log_path}/%d{yyyy-MM-dd}/info-%d{yyyy-MM-dd}-%i.log.gz">
             <Filters>
-                <ThresholdFilter level="${RollingFileInfoLevel}" />
+                <ThresholdFilter level="${logLevel}" />
                 <!-- <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL" /> -->
             </Filters>
             <!-- <PatternLayout pattern="[%d][%t][%p][%c:%L] %m%n" /> -->
@@ -33,7 +33,7 @@
 		<Logger name="org.springframework" level="warn">
 			<AppenderRef ref="Console" />
 		</Logger>
-		<Root level="${RollingFileInfoLevel}">
+		<Root level="${logLevel}">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="RollingFileInfo" />
 		</Root>

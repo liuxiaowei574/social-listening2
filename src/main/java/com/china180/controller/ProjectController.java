@@ -8,11 +8,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.china180.service.ProjectService;
@@ -30,17 +30,18 @@ public class ProjectController extends BaseController {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/ProjectManager")
-	public Map<String, Object> projectManager(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "module", required = false) String module) throws Exception {
+	public Map<String, Object> projectManager(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+//		MyHttpServletRequest request = new MyHttpServletRequest(req);
 		Map<String, Object> returnMap = new HashMap<>();
 		Map<String, Object> data = new HashMap<String, Object>();
+		String module = request.getParameter("module");
 		logger.info("*****接收参数****** module={}", module);
 
 		if (StringUtils.isAnyBlank(module)) {
 			return ResponseMapUtil.setOtherResultCode(returnMap, "1002", "", data);
 		}
 
-		debugRequestParameters(request);
 		if ("query_project_info_from_baike".equals(module)) {
 			String project_brand = request.getParameter("project_brand");
 			String project_product = request.getParameter("project_product");
@@ -114,7 +115,9 @@ public class ProjectController extends BaseController {
 		} else if ("insert".equals(module)) {
 			String project_name = request.getParameter("project_name");
 			String project_type = request.getParameter("project_type");
-			Map userInfo = (Map) request.getSession().getAttribute(Constant.SESSION_USER);
+			HttpSession session = request.getSession(false);
+			logger.info("sessionId:" + session.getId());
+			Map userInfo = (Map) session.getAttribute(Constant.SESSION_USER);
 			if (userInfo == null || userInfo.size() < 1) {
 				return ResponseMapUtil.setOtherResultCode(returnMap, "2002", "", data);
 			}

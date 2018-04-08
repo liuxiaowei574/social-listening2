@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.china180.dao.UserDao;
-import com.china180.vo.User;
 
 @Service
 @Transactional
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.findByProperties(map);
 	}
 	
-	public List<User> login(String loginName) {
+	public List<Map<String, Object>> login(String loginName) {
 		return userDao.login(loginName);
 	}
 

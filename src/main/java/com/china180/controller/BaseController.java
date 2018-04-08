@@ -9,9 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * 控制器基类
+ * 
+ * @author shaowei.liu
+ *
+ */
 public abstract class BaseController {
 	protected Logger logger = LogManager.getLogger(BaseController.class);
 
+	/**
+	 * debug输出入参内容，<b>不适用于流方式</b>
+	 * 
+	 * @param request
+	 */
 	protected void debugRequestParameters(HttpServletRequest request) {
 		if (!logger.isDebugEnabled()) {
 			return;
@@ -21,6 +32,11 @@ public abstract class BaseController {
 		logger.debug("=========请求参数[" + className + "]:" + sb.toString());
 	}
 
+	/**
+	 * info输出入参内容，<b>不适用于流方式</b>
+	 * 
+	 * @param request
+	 */
 	protected void infoRequestParameters(HttpServletRequest request) {
 		if (!logger.isInfoEnabled()) {
 			return;
@@ -30,8 +46,14 @@ public abstract class BaseController {
 		logger.info("=========请求参数[" + className + "]:" + sb.toString());
 	}
 
+	/**
+	 * 创建入参字符串，<b>不适用于流方式</b>
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
-	private StringBuilder createRequestParamStr(HttpServletRequest request) {
+	public static StringBuilder createRequestParamStr(HttpServletRequest request) {
 		StringBuilder sb = new StringBuilder();
 		Map map = request.getParameterMap();
 		Set entrySet = map.entrySet();
@@ -52,5 +74,4 @@ public abstract class BaseController {
 		return sb;
 	}
 
-	
 }

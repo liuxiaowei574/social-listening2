@@ -32,8 +32,8 @@
 	
 	<select id="login" resultType="java.util.Map" parameterType="String">
 		SELECT 	user_id,
-				password,
 				login_name,
+				password,
 				user_status,
 				user_level,
 				user_pic

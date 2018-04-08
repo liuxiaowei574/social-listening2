@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
@@ -34,18 +33,17 @@ public class AnalysisController extends BaseController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/Analysis")
-	public Map<String, Object> analysis(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "module", required = false) String module,
-			@RequestParam(value = "project_id", required = false) String project_id) throws Exception {
+	public Map<String, Object> analysis(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> returnMap = new HashMap<>();
 		Map<String, Object> data = new HashMap<String, Object>();
+		String module = request.getParameter("module");
+		String project_id = request.getParameter("project_id");
 		logger.info("*****接收参数****** module={} project_id={}", module, project_id);
 
 		if (StringUtils.isAnyBlank(module, project_id)) {
 			return ResponseMapUtil.setOtherResultCode(returnMap, "1002", "", data);
 		}
 
-		debugRequestParameters(request);
 		if ("sound".equals(module)) {
 			String start_time = request.getParameter("start_time").substring(0, 10);
 			String end_time = request.getParameter("end_time").substring(0, 10);
