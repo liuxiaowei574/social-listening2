@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
 import com.china180.service.MsgService;
 import com.china180.util.Constant;
 import com.china180.util.ResponseMapUtil;
@@ -72,14 +73,33 @@ public class MsgController extends BaseController {
 			List<Map<String, Object>> list = msgService.findMsg(paramMap);
 			// 需要把Page包装成PageInfo对象才能序列化
 			PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(list);
-			returnMap.put("sEcho",
-					StringUtils.isNotBlank(request.getParameter("sEcho")) ? request.getParameter("sEcho") : "");
+			
+			JSONArray aaData = new JSONArray();
+			for (Map<String, Object> map : list) {
+				JSONArray record = new JSONArray();
+				record.add(map.get("msg_id"));
+				record.add(map.get("login_name"));
+				record.add(map.get("msg_level"));
+				record.add(map.get("msg_title"));
+				record.add(map.get("msg_info"));
+				record.add(map.get("be_read"));
+				
+				aaData.add(record);
+			}
+			returnMap.put("sEcho", request.getParameter("sEcho"));
 			returnMap.put("iTotalRecords", pageInfo.getTotal());
 			returnMap.put("iTotalDisplayRecords", pageInfo.getTotal());
-			returnMap.put("aaData", list);
+			returnMap.put("aaData", aaData);
 			returnMap.put(Constant.RESULTCODE, Constant.SUCCESS);
 			returnMap.put(Constant.STATUS, Constant.OK);
 			return returnMap;
+		} else if ("delete".equals(module)) {
+			String msg_id = StringUtils.defaultString(request.getParameter("target"), "");
+			int result = msgService.delete(msg_id);
+			if (result < 1) {
+				return ResponseMapUtil.setOtherResultCode(returnMap, "1003", "", data);
+			}
+			return ResponseMapUtil.setDefultSuccess(returnMap, "", data);
 		}
 
 		return ResponseMapUtil.setDefultSuccess(returnMap, "", data);

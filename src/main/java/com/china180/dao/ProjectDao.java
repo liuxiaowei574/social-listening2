@@ -8,7 +8,11 @@ import com.china180.vo.Project;
 
 public interface ProjectDao {
 
-	public List<Map<String, Object>> findById(String project_id);
+	public Map<String, Object> findById(String project_id);
+	
+	public List<Map<String, Object>> findListByProjectName(String project_name);
+	
+	public List<Map<String, Object>> findListBackbone(String project_id);
 
 	public List<Map<String, Object>> findByProperties(Map<String, Object> map);
 

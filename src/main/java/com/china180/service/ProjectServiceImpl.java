@@ -19,18 +19,32 @@ public class ProjectServiceImpl implements ProjectService {
 	@Resource
 	private ProjectDao projectDao;
 
-	public List<Map<String, Object>> findById(String project_id) {
+	@Override
+	public Map<String, Object> findById(String project_id) {
 		return projectDao.findById(project_id);
 	}
 
+	@Override
+	public List<Map<String, Object>> findListByProjectName(String project_name) {
+		return projectDao.findListByProjectName(project_name);
+	}
+
+	@Override
+	public List<Map<String, Object>> findListBackbone(String project_id) {
+		return projectDao.findListBackbone(project_id);
+	}
+
+	@Override
 	public List<Map<String, Object>> findByProperties(Map<String, Object> map) {
 		return projectDao.findByProperties(map);
 	}
 
+	@Override
 	public int insert(Project project) {
 		return projectDao.insert(project);
 	}
 
+	@Override
 	public int update(Map<String, Object> map) {
 		return projectDao.update(map);
 	}
@@ -56,7 +70,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<Map<String, Object>> findSpiderTask() {
 		return projectDao.findSpiderTask();
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> findEngineTask() {
 		return projectDao.findEngineTask();

@@ -40,7 +40,7 @@ public class MybatisTest {
 	public void testFindAll() {
 		// 只有紧跟在 PageHelper.startPage 方法后的第一个 MyBatis 的查询(select)方法会被分页
 		PageHelper.startPage(2, 4);
-		List<Map<String, Object>> userList = service.findAll();
+		List<Map<String, Object>> userList = service.findListByLoginName("zhangsan");
 		System.out.println("userList:" + JSON.toJSONString(userList));
 		// 需要把Page包装成PageInfo对象才能序列化
 		PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(userList);

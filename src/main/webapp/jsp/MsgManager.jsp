@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="../includes/header.jsp" %>
+<%@ include file="../includes/menu.jsp" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>消息管理</title>
-<link rel="stylesheet" type="text/css" href="/Social-Listening/css/jquery.dataTables.css" media="all">
-<link rel="stylesheet" type="text/css" href="/Social-Listening/css/jquery.tooltip.css"	media="all" />
-<link rel="stylesheet" type="text/css" href="/Social-Listening/css/demo_table.css"	media="all" />
-<script type="text/javascript" language="javascript"	 src="/Social-Listening/js/jquery.js"></script>
-<script type="text/javascript" language="javascript"	 src="/Social-Listening/js/jquery.dataTables.js"></script>
-<script type="text/javascript" language="javascript"	 src="/Social-Listening/js/jquery.tooltip.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jquery.dataTables.css" media="all">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jquery.tooltip.css"	media="all" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/demo_table.css"	media="all" />
+<script type="text/javascript" language="javascript"	 src="${pageContext.request.contextPath}/js/jquery.js"></script>
+<script type="text/javascript" language="javascript"	 src="${pageContext.request.contextPath}/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript"	 src="${pageContext.request.contextPath}/js/jquery.tooltip.js"></script>
 <script type="text/javascript" charset="utf-8">
 	var selected = null;
 	var oTable= null;
@@ -43,7 +45,7 @@
 					"sLast" : "尾页"
 				}
 			},
-			"sAjaxSource" : "/Social-Listening/MsgManager?module=list_all",
+			"sAjaxSource" : "${pageContext.request.contextPath}/MsgManager?module=list_all",
 			"aoColumns" : [ {
 				"bVisible" : false,
 				"sClass" : "center",
@@ -99,7 +101,7 @@
 		else
 		{
 			if(confirm("确定删除选中消息")){
-				$.get("/Social-Listening/MsgManager?module=delete&target="+selected[0]
+				$.get("${pageContext.request.contextPath}/MsgManager?module=delete&target="+selected[0]
 						,function(result) {
 						});
 			}

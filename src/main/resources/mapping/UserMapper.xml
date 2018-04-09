@@ -14,20 +14,24 @@
 		login_name,
 		user_status,
 		user_level,
-		user_pic
+		IFNULL(user_pic,'') as "user_pic"
 	</sql>
 	
-	<select id="findAll" resultType="java.util.Map" parameterType="java.util.Map">
+	<select id="findListByLoginName" resultType="java.util.Map" parameterType="String">
 		SELECT 
 		<include refid="Base_Column_List" />
 		FROM user_tbl
+		WHERE
+			login_name LIKE CONCAT('%', #{login_name}, '%')
+		ORDER BY
+			user_id ASC
 	</select>
 	
 	<select id="findByLoginName" resultType="java.util.Map" parameterType="String">
 		SELECT 
 		<include refid="Base_Column_List" />
 		FROM user_tbl 
-		WHERE login_name = #{loginName,jdbcType=VARCHAR}
+		WHERE login_name = #{login_name,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="login" resultType="java.util.Map" parameterType="String">
@@ -38,7 +42,7 @@
 				user_level,
 				user_pic
 		FROM user_tbl 
-		WHERE login_name = #{loginName,jdbcType=VARCHAR}
+		WHERE login_name = #{login_name,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="findByProperties" resultType="java.util.Map" parameterType="java.util.Map">
@@ -70,5 +74,21 @@
 		#{user_status,jdbcType=VARCHAR},
 		'' )
     </insert>
+    
+    <update id="update" parameterType="java.util.Map">
+		update user_tbl
+		<set>
+			<if test="user_level != null">
+				user_level = #{user_level,jdbcType=INTEGER},
+			</if>
+			<if test="user_status != null">
+				user_status = #{user_status,jdbcType=INTEGER},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where user_id = #{user_id,jdbcType=VARCHAR}
+	</update>
 	
 </mapper>

@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
@@ -44,7 +43,7 @@ public class QuartzTask {
 	 * <p>
 	 * 发送任务给引擎，通过RPC
 	 */
-	@Scheduled(cron = "${scheduller.engine.task.cron}")
+//	@Scheduled(cron = "${scheduller.engine.task.cron}")
 	public void sendTasksToEngine() {
 		List<Map<String, Object>> list = projectService.findEngineTask();
 		if (list == null) {
@@ -65,7 +64,7 @@ public class QuartzTask {
 	 * <p>
 	 * 发送任务给爬虫，通过RabbitMQ
 	 */
-	@Scheduled(cron = "${scheduller.spider.task.cron}")
+//	@Scheduled(cron = "${scheduller.spider.task.cron}")
 	public void sendTasksToSpider() {
 		List<Map<String, Object>> list = projectService.findSpiderTask();
 		if (list == null) {

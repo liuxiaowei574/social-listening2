@@ -30,10 +30,11 @@
 		};
 		$('#userupdate').ajaxForm(options);
 		
-		$.get("/Social-Listening/UserManager?module=listall",
+		$.get("${pageContext.request.contextPath}/UserManager?module=listall",
 		function(result) {
 			if ( result != "[]"){
-				var data = eval(result);
+				//var data = eval(result);
+				var data = result.aaData;
 				$.each(data, function(i, item) {
 					$("<option value="+item[0]+">" + item[1] + "</option>").appendTo($("#reciever"));
 				});
@@ -97,7 +98,7 @@
 	function insertMsg() {
 		if (check4new()) {
 			$.ajax({
-				url : '/Social-Listening/MsgManager?module=insert&msg_title='+$("#msg_title").val()+'&msg_info='+$("#msg_info").val()+'&user_id='+$("#reciever").val()+'&msg_level=1',
+				url : '${pageContext.request.contextPath}/MsgManager?module=insert&msg_title='+$("#msg_title").val()+'&msg_info='+$("#msg_info").val()+'&user_id='+$("#reciever").val()+'&msg_level=1',
 				type : 'GET',
 				dataType : 'json',
 				timeout : 5000,
@@ -136,7 +137,7 @@
 <body>
 	<h1>发新消息</h1>
 	<hr />
-	<form action="/Social-Listening/UserManager" id="userupdate" method="post">
+	<form action="${pageContext.request.contextPath}/UserManager" id="userupdate" method="post">
 		<input id="index" name="index" type="hidden" value="1">
 		<table border="0">
 			<tr>

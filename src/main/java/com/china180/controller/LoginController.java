@@ -27,7 +27,6 @@ public class LoginController extends BaseController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/login")
 	public Map<String, Object> login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		MyHttpServletRequest request = new MyHttpServletRequest(req);
 		Map<String, Object> returnMap = new HashMap<>();
 		Map<String, Object> data = new HashMap<String, Object>();
 		String login_name = request.getParameter("login_name");
@@ -45,7 +44,7 @@ public class LoginController extends BaseController {
 		} else {
 			if (StringUtils.isBlank(password)) {
 				// 检查登录状态
-				Object obj = (String) session.getAttribute(Constant.SESSION_USER);
+				Object obj = session.getAttribute(Constant.SESSION_USER);
 				if (obj != null) {
 					already_login = true;
 				} else {
@@ -73,8 +72,8 @@ public class LoginController extends BaseController {
 				return ResponseMapUtil.setOtherResultCode(returnMap, "1002", "", data);
 			}
 			if (data.size() < 1) {
-				List<Map<String, Object>> list = userService.findByLoginName(login_name);
-				data.putAll(list.get(0));
+				Map<String, Object> user = userService.findByLoginName(login_name);
+				data.putAll(user);
 			}
 
 			session.setAttribute(Constant.SESSION_USER, data);

@@ -86,7 +86,7 @@
 		
 		if ((project_id != '') && (project_id != null)){
 			$.ajax({
-				url : '/Social-Listening/ProjectManager?module=backbone_select&project_id=' + project_id,
+				url : '${pageContext.request.contextPath}/ProjectManager?module=backbone_select&project_id=' + project_id,
 				type : 'GET',
 				dataType : 'json',
 				timeout : 5000,
@@ -194,7 +194,7 @@
 			    };
 			
 			$.ajax({
-				url : '/Social-Listening/ProjectManager',
+				url : '${pageContext.request.contextPath}/ProjectManager',
 				data: reqData,
 				type : 'GET',
 				contentType:"application/json;charset=utf-8",
@@ -235,7 +235,7 @@
 <body onload="getuserinfo()">
 	<h1>编辑项目信息</h1>
 	<hr />
-	<form action="/Social-Listening/UserManager" id="userupdate" method="post">
+	<form action="${pageContext.request.contextPath}/UserManager" id="userupdate" method="post">
 		<input id="index" name="index" type="hidden" value="1">
 		<table border="0">
 			<tr>

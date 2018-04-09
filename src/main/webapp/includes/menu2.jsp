@@ -46,7 +46,5 @@ a{ text-decoration:none}
 			</div>
 		</div>
 	</div>
-</td>
-<td valign="top" id="main" nowrap>
-<br>
-<div class="docBody">
+</body>
+</html>

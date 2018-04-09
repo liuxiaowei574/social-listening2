@@ -22,4 +22,12 @@
 		WHERE msg_id = #{msg_id,jdbcType=VARCHAR}
 	</update>
 	
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE
+		FROM
+			msg_tbl
+		WHERE
+			msg_id = #{msg_id,jdbcType=VARCHAR}
+	</delete>
+	
 </mapper>

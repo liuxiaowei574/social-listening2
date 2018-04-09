@@ -16,7 +16,7 @@
 <script type="text/javascript" language="javascript" src="../js/jquery.tooltip.js"></script>
 
 <script type="text/javascript" charset="utf-8">
-var userid =  '<%=request.getParameter("userid")%>';
+var userid =  '${param.userid}';
 	function getuserinfo() {
 		//获取 URL中传过来的参数 
 		
@@ -24,7 +24,7 @@ var userid =  '<%=request.getParameter("userid")%>';
 		$("#userid").val(userid);
 		if ((userid != '') && (userid != null)){
 			$.ajax({
-				url : '/Social-Listening/UserManager?module=select&user_id=' + userid,
+				url : '${pageContext.request.contextPath}/UserManager?module=select&user_id=' + userid,
 				type : 'GET',
 				dataType : 'json',
 				timeout : 5000,
@@ -32,8 +32,7 @@ var userid =  '<%=request.getParameter("userid")%>';
 					alert('通信失败4。');
 				},
 				success : function(result) {
-					alert(result.data.loginname);
-					alert(result.status);
+					console.log(result);
 					$("#loginname").val(result.data.loginname);
 					$("#user_level").val(result.data.user_level);
 					$("#user_pic").val(result.data.user_pic);
@@ -109,7 +108,7 @@ var userid =  '<%=request.getParameter("userid")%>';
 	function updateUserInfo() {
 		if (check4new()) {
 			$.ajax({
-				url : '/Social-Listening/UserManager?module=update&login_name='+$("#loginname").val()+'&user_level='+$("#user_level").val()+'&user_id='+userid+'&user_status='+$("#userstate").val(),
+				url : '${pageContext.request.contextPath}/UserManager?module=update&login_name='+$("#loginname").val()+'&user_level='+$("#user_level").val()+'&user_id='+userid+'&user_status='+$("#userstate").val(),
 				type : 'GET',
 				dataType : 'json',
 				timeout : 5000,
@@ -148,7 +147,7 @@ var userid =  '<%=request.getParameter("userid")%>';
 <body onload="getuserinfo()">
 	<h1>编辑人员信息</h1>
 	<hr />
-	<form action="/Social-Listening/UserManager" id="userupdate" method="post">
+	<form action="${pageContext.request.contextPath}/UserManager" id="userupdate" method="post">
 		<input id="index" name="index" type="hidden" value="1">
 		<table border="0">
 			<tr>

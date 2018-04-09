@@ -7,7 +7,11 @@ import com.china180.vo.Project;
 
 public interface ProjectService {
 
-	public List<Map<String, Object>> findById(String project_id);
+	public Map<String, Object> findById(String project_id);
+	
+	public List<Map<String, Object>> findListByProjectName(String project_name);
+	
+	public List<Map<String, Object>> findListBackbone(String project_id);
 
 	public List<Map<String, Object>> findByUser(String userId, String projectType);
 

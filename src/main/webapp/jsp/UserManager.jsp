@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="../includes/header.jsp" %>
+<%@ include file="../includes/menu.jsp" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,7 +45,7 @@
 					"sLast" : "尾页"
 				}
 			},
-			"sAjaxSource" : "/Social-Listening/UserManager?module=userlist&action=listall",
+			"sAjaxSource" : "${pageContext.request.contextPath}/UserManager?module=userlist&action=listall",
 			"aoColumns" : [ {
 				"bVisible" : false,
 				"sClass" : "center",
@@ -99,7 +101,7 @@
 			//注意：ajax是异步执行，一个function的后面的语句可能优先于ajax的执行结果，造成错误
 			$.ajax(
 					{
-						url: '/Social-Listening/login?',
+						url: '${pageContext.request.contextPath}/login?',
 						type: 'GET',
 						dataType: 'json',
 						timeout: 5000,

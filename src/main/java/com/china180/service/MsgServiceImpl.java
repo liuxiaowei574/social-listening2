@@ -31,4 +31,9 @@ public class MsgServiceImpl implements MsgService {
 		return msgDao.readMsg(msgId);
 	}
 
+	@Override
+	public int delete(String msgId) {
+		return msgDao.delete(msgId);
+	}
+
 }

@@ -25,6 +25,55 @@
 		WHERE project_id = #{project_id,jdbcType=VARCHAR}
 	</select>
 	
+	<select id="findListByProjectName" resultType="java.util.Map" parameterType="String">
+		SELECT
+			project_id,
+			project_name,
+			project_type,
+			user_tbl.login_name,
+			project_brand,
+			project_product,
+			project_info,
+			project_key_words,
+			project_source,
+			DATE(project_create_time) as "project_create_time",
+			DATE(start_time) as "start_time",
+			DATE(end_time) as "end_time",
+			project_priority,
+			project_status
+		FROM
+			project_tbl,
+			user_tbl
+		WHERE
+			project_user_belong = user_tbl.user_id
+		AND project_name LIKE CONCAT('%', #{project_name}, '%')
+		ORDER BY
+			project_id ASC
+	</select>
+	
+	<select id="findListBackbone" resultType="java.util.Map" parameterType="String">
+		SELECT
+			project_name,
+			project_type,
+			user_tbl.login_name,
+			project_status,
+			project_brand,
+			project_product,
+			project_info,
+			project_key_words,
+			project_source,
+			project_priority,
+			DATE(project_create_time) AS "project_create_time",
+			DATE(start_time) AS "start_time",
+			DATE(end_time) AS "end_time"
+		FROM
+			project_tbl,
+			user_tbl
+		WHERE
+			project_user_belong = user_tbl.user_id
+		AND project_id = #{project_id}
+	</select>
+	
 	<select id="findByProperties" resultType="java.util.Map" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
@@ -114,6 +163,9 @@
 			</if>
 			<if test="project_create_time != null">
 				project_create_time = #{project_create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="project_priority != null">
+				project_priority = #{project_priority,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where project_id = #{project_id,jdbcType=INTEGER}
