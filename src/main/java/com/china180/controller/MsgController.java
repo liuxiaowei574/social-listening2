@@ -30,21 +30,21 @@ public class MsgController extends BaseController {
 	public Map<String, Object> msgManager(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> returnMap = new HashMap<>();
 		Map<String, Object> data = new HashMap<String, Object>();
-		String module = request.getParameter("module");
+		String module = StringUtils.defaultString(request.getParameter("module"), "");
 		logger.info("*****接收参数****** module={}", module);
 
 		if (StringUtils.isAnyBlank(module)) {
 			return ResponseMapUtil.setOtherResultCode(returnMap, "1002", "", data);
 		}
 		if ("msg_list_by_user".equals(module)) {
-			String userid = request.getParameter("userid");
+			String userid = StringUtils.defaultString(request.getParameter("userid"), "");
 			if (StringUtils.isAnyBlank(userid)) {
 				return ResponseMapUtil.setOtherResultCode(returnMap, "1002", "", data);
 			}
 			List<Map<String, Object>> list = msgService.findMsgByUser(userid);
 			return ResponseMapUtil.setDefultSuccess(returnMap, "", list);
 		} else if ("read_msg".equals(module)) {
-			String msg_id = request.getParameter("msg_id");
+			String msg_id = StringUtils.defaultString(request.getParameter("msg_id"), "");
 			if (StringUtils.isAnyBlank(msg_id)) {
 				return ResponseMapUtil.setOtherResultCode(returnMap, "1002", "", data);
 			}
@@ -53,9 +53,9 @@ public class MsgController extends BaseController {
 				return ResponseMapUtil.setOtherResultCode(returnMap, "1003", "", data);
 			}
 		} else if ("list_all".equals(module)) {
-			String sSearch = request.getParameter("sSearch");
-			String iDisplayLength = request.getParameter("iDisplayLength");
-			String iDisplayStart = request.getParameter("iDisplayStart");
+			String sSearch = StringUtils.defaultString(request.getParameter("sSearch"), "");
+			String iDisplayStart = StringUtils.defaultString(request.getParameter("iDisplayStart"), Constant.DEFAULT_PAGE_NUM);
+			String iDisplayLength = StringUtils.defaultString(request.getParameter("iDisplayLength"), Constant.DEFAULT_PAGE_SIZE);
 			if (StringUtils.isNotBlank(sSearch)) {
 				sSearch = new String(sSearch.getBytes("iso-8859-1"), Constant.ENCODING_UTF8);
 			}

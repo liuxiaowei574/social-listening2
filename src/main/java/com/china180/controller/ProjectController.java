@@ -121,7 +121,7 @@ public class ProjectController extends BaseController {
 			String project_name = StringUtils.defaultString(request.getParameter("project_name"), "");
 			String project_type = StringUtils.defaultString(request.getParameter("project_type"), "");
 			HttpSession session = request.getSession(false);
-			logger.info("sessionId:" + session.getId());
+			logger.debug("sessionId:" + session.getId());
 			Map userInfo = (Map) session.getAttribute(Constant.SESSION_USER);
 			if (userInfo == null || userInfo.size() < 1) {
 				return ResponseMapUtil.setOtherResultCode(returnMap, "2002", "", data);

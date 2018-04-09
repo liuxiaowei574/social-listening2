@@ -36,8 +36,8 @@ public class AnalysisController extends BaseController {
 	public Map<String, Object> analysis(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> returnMap = new HashMap<>();
 		Map<String, Object> data = new HashMap<String, Object>();
-		String module = request.getParameter("module");
-		String project_id = request.getParameter("project_id");
+		String module = StringUtils.defaultString(request.getParameter("module"), "");
+		String project_id = StringUtils.defaultString(request.getParameter("project_id"), "");
 		logger.info("*****接收参数****** module={} project_id={}", module, project_id);
 
 		if (StringUtils.isAnyBlank(module, project_id)) {
@@ -45,9 +45,14 @@ public class AnalysisController extends BaseController {
 		}
 
 		if ("sound".equals(module)) {
-			String start_time = request.getParameter("start_time").substring(0, 10);
-			String end_time = request.getParameter("end_time").substring(0, 10);
-			String source_id = request.getParameter("source_id");
+			String start_time = StringUtils.defaultString(request.getParameter("start_time"), "");
+			String end_time = StringUtils.defaultString(request.getParameter("end_time"), "");
+			if (start_time.length() < 10 || end_time.length() < 10) {
+				return ResponseMapUtil.setOtherResultCode(returnMap, "1002", "", data);
+			}
+			start_time = start_time.substring(0, 10);
+			end_time = end_time.substring(0, 10);
+			String source_id = StringUtils.defaultString(request.getParameter("source_id"), "");
 			if (StringUtils.isNotBlank(source_id)) {
 				source_id = source_id.replaceAll(" ", "+");
 			}
@@ -80,7 +85,7 @@ public class AnalysisController extends BaseController {
 			}
 			return ResponseMapUtil.setDefultSuccess(returnMap, "", jsonArray);
 		} else if ("rank".equals(module)) {
-			String source_id = request.getParameter("source_id");
+			String source_id = StringUtils.defaultString(request.getParameter("source_id"), "");
 			Map<String, Object> paramMap = new HashMap<>();
 			paramMap.put("project_id", project_id);
 			paramMap.put("source_id", source_id);

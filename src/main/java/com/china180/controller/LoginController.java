@@ -29,9 +29,9 @@ public class LoginController extends BaseController {
 	public Map<String, Object> login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> returnMap = new HashMap<>();
 		Map<String, Object> data = new HashMap<String, Object>();
-		String login_name = request.getParameter("login_name");
-		String password = request.getParameter("password");
-		String logout = request.getParameter("logout");
+		String login_name = StringUtils.defaultString(request.getParameter("login_name"), "");
+		String password = StringUtils.defaultString(request.getParameter("password"), "");
+		String logout = StringUtils.defaultString(request.getParameter("logout"), "");
 		logger.info("*****接收参数****** login_name={} password={} logout={}", login_name, password, logout);
 		
 		HttpSession session = request.getSession();
